@@ -6,6 +6,9 @@ This is highly WIP
 ## Description
 A .NET Library for communicating with the Github API
 
+## Testing
+The GithubAPI.Console project can be used to test functionality locally
+
 ## Resources
 [Github REST API Docs](https://docs.github.com/rest)
 [Github GraphQL API Docs](https://docs.github.com/graphql)
