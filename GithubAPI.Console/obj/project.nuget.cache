@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "z51aTL7TmMJQmj+l/k5yoBu1mBpJHbgcPabEkqcmRMMZybJ7HAMTv/Z47OkRpKFGihA13TB0+/hcIOmh026+Fw==",
+  "success": true,
+  "projectFilePath": "/workspaces/gh-api/GithubAPI.Console/GithubAPI.Console.csproj",
+  "expectedPackageFiles": [
+    "/home/vscode/.nuget/packages/graphql/7.8.0/graphql.7.8.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql-parser/8.4.2/graphql-parser.8.4.2.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.analyzers/7.8.0/graphql.analyzers.7.8.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.client/6.0.3/graphql.client.6.0.3.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.client.abstractions/6.0.3/graphql.client.abstractions.6.0.3.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.client.abstractions.websocket/6.0.3/graphql.client.abstractions.websocket.6.0.3.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.client.serializer.newtonsoft/6.0.3/graphql.client.serializer.newtonsoft.6.0.3.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.newtonsoftjson/7.8.0/graphql.newtonsoftjson.7.8.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.primitives/6.0.3/graphql.primitives.6.0.3.nupkg.sha512",
+    "/home/vscode/.nuget/packages/graphql.systemtextjson/7.8.0/graphql.systemtextjson.7.8.0.nupkg.sha512",
+    "/home/vscode/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/home/vscode/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/home/vscode/.nuget/packages/system.reactive/6.0.0/system.reactive.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
