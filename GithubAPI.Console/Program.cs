@@ -1,4 +1,4 @@
-﻿using GithubAPI.Library;
+﻿using GithubAPI.Library.GraphQL;
 
 var tokenClient = new HttpClient();
 
@@ -6,7 +6,7 @@ var tokenResponse = await tokenClient.GetAsync("https://gh-api-token-provider.az
 
 var token = await tokenResponse.Content.ReadAsStringAsync();
 
-var graphqlClient = new GraphQLClient(token);
+var graphqlClient = new GraphQLClient(token.Trim());
 
 await graphqlClient.GetAsync();
 
