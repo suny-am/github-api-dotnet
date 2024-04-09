@@ -2,3 +2,6 @@
 .mono/
 bin/
 obj/
+
+# Misc
+*.env

@@ -1,12 +1,17 @@
 ﻿using GithubAPI.Library.GraphQL;
+using dotenv.net;
 
-var tokenClient = new HttpClient();
+DotEnv.Load();
 
-var tokenResponse = await tokenClient.GetAsync("https://gh-api-token-provider.azurewebsites.net/api/token");
+string? token = Environment.GetEnvironmentVariable("ACCESS_TOKEN"); // this needs to be set in your environment when testing
 
-var token = await tokenResponse.Content.ReadAsStringAsync();
+if (token is null)
+{
+    Console.WriteLine("could not load token");
+    return;
+}
 
-var graphqlClient = new GraphQLClient(token.Trim());
+var graphqlClient = new GraphQLClient(token!);
 
 await graphqlClient.GetAsync();
 

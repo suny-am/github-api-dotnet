@@ -1,7 +1,5 @@
 ﻿using System.Net.Http.Headers;
-using GithubAPI.Library.GraphQL.Types;
 using GraphQL.Client.Http;
-using GraphQL.Client.Abstractions;
 using GraphQL.Client.Serializer.Newtonsoft;
 using Newtonsoft.Json.Linq;
 
@@ -14,11 +12,19 @@ public class GraphQLClient(string apiToken)
 
   public async Task GetAsync()
   {
-    var request = new BaseRequest(new AuthenticationHeaderValue("Bearer", _apiToken));
+    var request2 = new BaseRequest(new AuthenticationHeaderValue("bearer", _apiToken));
 
-    var response = await _graphQlHttpClient.SendQueryAsync<JObject>(request);
+    Console.WriteLine(request2.GetType());
 
-    Console.WriteLine(response.Data);
+    var response = await _graphQlHttpClient.SendQueryAsync<JObject>(request2);
 
+    JObject data = response.Data;
+
+    var list = data["organization"]!["repositories"]!["nodes"]!.AsJEnumerable();
+
+    foreach (var item in list)
+    {
+      Console.WriteLine(item["defaultBranchRef"]!["target"]!["history"]!["totalCount"]);
+    }
   }
 }

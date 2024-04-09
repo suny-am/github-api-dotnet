@@ -4,6 +4,10 @@
     <ProjectReference Include="..\GithubAPI.Library\GithubAPI.Library.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="dotenv.net" Version="3.1.3" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>

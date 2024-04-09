@@ -7,8 +7,7 @@ public class BaseRequest : CustomHeaderRequest
 {
     public BaseRequest(AuthenticationHeaderValue authentication) : base(authentication)
     {
-        Query = @"
-                query ($orgLogin: String!) {
+        Query = @"query ($orgLogin: String!) {
                   organization(login: $orgLogin) {
                     name
                     repositories(first: 20) {
@@ -25,12 +24,11 @@ public class BaseRequest : CustomHeaderRequest
                       }
                     }
                   }
-                }
-                ";
-        OperationName = "baseRequest";
+                }";
         Variables = new
         {
-            orgLogin = "sunyam-lexicon-2024"
+            orgLogin = "sunyam-lexicon-2024",
+            userLogin = "suny-am"
         };
     }
 

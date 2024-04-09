@@ -7,6 +7,7 @@ namespace GithubAPI.Library.GraphQL;
 public class CustomHeaderRequest(AuthenticationHeaderValue authentication) : GraphQLHttpRequest
 {
     private AuthenticationHeaderValue _authentication = authentication;
+    public AuthenticationHeaderValue Authentication => _authentication;
 
     public override HttpRequestMessage ToHttpRequestMessage(GraphQLHttpClientOptions options, IGraphQLJsonSerializer serializer)
     {
