@@ -1,0 +1,3 @@
+[submodule "sharp-console"]
+	path = sharp-console
+	url = https://github.com/suny-am/sharp-console
