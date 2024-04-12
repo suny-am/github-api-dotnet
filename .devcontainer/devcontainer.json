@@ -1,5 +1,5 @@
 {
-	"name": "C# (.NET)",
+	"name": "Github API .NET",
 	"image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
 	"containerEnv": {
 		"HOME": "/home/vscode"
