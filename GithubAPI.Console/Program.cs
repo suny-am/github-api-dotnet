@@ -1,29 +1,45 @@
 ﻿using GithubAPI.Library.GraphQL;
-using dotenv.net;
+using GithubAPI.Library.GraphQL.Records;
+using GithubAPI.Library.Azure.Cosmos;
+using SharpConsole;
 
-DotEnv.Load();
+IO io = IO.Instance;
 
-string? token = Environment.GetEnvironmentVariable("ACCESS_TOKEN"); // this needs to be set in your environment when testing
+string? ghApiToken;
 
-if (token is null)
+try
 {
-    Console.WriteLine("could not load token");
-    return;
+    ghApiToken = Environment.GetEnvironmentVariable("GITHUB_ACCESS_TOKEN"); // this needs to be set in your environment when testing
+}
+catch (Exception ex)
+{
+    throw new Exception("Could not load token from environment", ex);
 }
 
-var graphqlClient = new GraphQLClient(token!);
+var graphQLHandler = new GraphQLHandler(ghApiToken!);
 
-await graphqlClient.GetAsync();
+IEnumerable<Repository>? result = await graphQLHandler.GetDiskUsageBySearch();
 
-/*
-Github API docs: 
-https://docs.github.com/en/rest?apiVersion=2022-11-28
+if (result is null)
+{
+    io.Write("no data found", newline: true);
+}
+else
+{
+    try
+    {
+        CosmosDbHandler cosmosDbHandler = new();
+        await cosmosDbHandler.LoadDatabase();
 
-*** Endpoints to use: *** 
-
-Org repos: 
-https://api.github.com/orgs/sunyam-lexicon-2024/repos
-Org Pages: 
-https://api.github.com/repos/sunyam-lexicon-2024/${REPO}/pages)
-
-*/
+        foreach (var repo in result)
+        {
+            io.Write($"Creating entry for repository {repo.name}...", newline: true);
+            await cosmosDbHandler.Create(repo);
+            io.WriteEncoded($"[green]{repo.name} inserted successfully into container![green]{Environment.NewLine}");
+        }
+    }
+    catch (Exception ex)
+    {
+        throw new Exception(ex.Message);
+    }
+}
