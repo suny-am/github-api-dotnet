@@ -14,7 +14,7 @@ public class GraphQLHandler(string apiToken)
   private readonly AuthenticationHeaderValue _auth = new("bearer", apiToken);
   private readonly GraphQLHttpClient _graphQlHttpClient = new("https://api.github.com/graphql", new NewtonsoftJsonSerializer());
 
-  public async Task<IEnumerable<NodeType>?> GetDiskUsageByQuery()
+  public async Task<IEnumerable<NodeType>?> GetRepositoriesByQuery()
   {
     var orgQuery = new OrganizationQuery(_auth);
     var response = await _graphQlHttpClient.SendQueryAsync(
@@ -27,7 +27,7 @@ public class GraphQLHandler(string apiToken)
     return response.Data.organization.Repositories!.Nodes!;
   }
 
-  public async Task<IEnumerable<Repository>?> GetDiskUsageBySearch()
+  public async Task<IEnumerable<Repository>?> GetRepositoriesBySearch()
   {
     GraphQLRequest searchQuery = new SearchQuery(_auth);
     GraphQLResponse<SearchResponseType> response = await _graphQlHttpClient.SendQueryAsync(
