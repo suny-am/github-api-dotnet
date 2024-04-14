@@ -1,9 +1,5 @@
 ﻿using GithubAPI.Library.GraphQL;
 using GithubAPI.Library.GraphQL.Records;
-using GithubAPI.Library.Azure.Cosmos;
-using SharpConsole;
-
-IO io = IO.Instance;
 
 string? ghApiToken;
 
@@ -16,8 +12,8 @@ catch (Exception ex)
     throw new Exception("Could not load token from environment", ex);
 }
 
-var graphQLHandler = new GraphQLHandler(ghApiToken!);
+GraphQLHandler graphQLHandler = new(ghApiToken!);
 
-IEnumerable<Repository>? result = await graphQLHandler.GetDiskUsageBySearch();
+IEnumerable<Repository>? result = await graphQLHandler.GetRepositoriesBySearch();
 
-io.Write(result.Count(), newline: true)
+Console.WriteLine(result?.Count());
