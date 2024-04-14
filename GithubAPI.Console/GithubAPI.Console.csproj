@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GithubAPI.Library\GithubAPI.Library.csproj" />
-    <ProjectReference Include="..\sharp-console\SharpConsole.csproj" />
   </ItemGroup>
 
   <ItemGroup>

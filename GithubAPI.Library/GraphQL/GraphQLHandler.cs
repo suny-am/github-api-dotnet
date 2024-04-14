@@ -1,11 +1,11 @@
 ﻿using System.Net.Http.Headers;
-using GithubAPI.Library.GraphQL.Types;
 using GraphQL.Client.Http;
 using GraphQL.Client.Abstractions;
 using GraphQL.Client.Serializer.Newtonsoft;
+using GraphQL;
+using GithubAPI.Library.GraphQL.Types;
 using GithubAPI.Library.GraphQL.Queries;
 using GithubAPI.Library.GraphQL.Records;
-using GraphQL;
 
 namespace GithubAPI.Library.GraphQL;
 

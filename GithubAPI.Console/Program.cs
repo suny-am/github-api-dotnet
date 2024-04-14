@@ -3,16 +3,19 @@ using GithubAPI.Library.GraphQL.Records;
 
 string? ghApiToken;
 
+HttpClient tokenClient = new();
+
 try
 {
-    ghApiToken = Environment.GetEnvironmentVariable("GITHUB_ACCESS_TOKEN"); // this needs to be set in your environment when testing
+    string endpoint = Environment.GetEnvironmentVariable("GITHUB_TOKEN_ENDPOINT")!;
+    ghApiToken = await tokenClient.GetStringAsync(endpoint); // this needs to be set in your environment when testing
 }
 catch (Exception ex)
 {
-    throw new Exception("Could not load token from environment", ex);
+    throw new Exception("Could not get github access token", ex);
 }
 
-GraphQLHandler graphQLHandler = new(ghApiToken!);
+GraphQLHandler graphQLHandler = new(ghApiToken!.Trim());
 
 IEnumerable<Repository>? result = await graphQLHandler.GetRepositoriesBySearch();
 
