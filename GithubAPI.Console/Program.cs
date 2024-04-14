@@ -15,7 +15,7 @@ catch (Exception ex)
     throw new Exception("Could not get github access token", ex);
 }
 
-GraphQLHandler graphQLHandler = new(ghApiToken!.Trim());
+GraphQLHandler graphQLHandler = new(ghApiToken!);
 
 IEnumerable<Repository>? result = await graphQLHandler.GetRepositoriesBySearch();
 
