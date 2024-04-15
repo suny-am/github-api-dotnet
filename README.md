@@ -2,8 +2,10 @@
 
 
 ## Description
-A .NET Library for communicating with the Github API and
-Currently, only GraphQL is supported.
+A .NET Library for communicating with the Github API (only GraphQL is supported for now).
+
+## TBD
+- Implement GraphQLHandler\<T\>
 
 ## Testing
 The *GithubAPI.Console* project can be used to test functionality locally
