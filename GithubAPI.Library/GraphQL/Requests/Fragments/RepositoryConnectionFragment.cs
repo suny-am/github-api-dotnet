@@ -1,9 +1,13 @@
-namespace GithubAPI.Library.GraphQL.Queries.Fragments;
+namespace GithubAPI.Library.GraphQL.Requests.Fragments;
 
-public static class RepositoryFragment
+public class RepositoryConnectionFragment : BaseFragment
 {
-  public static readonly string Name = "...repoFragment";
-    public static readonly string Value = @"fragment repoFragment on Repository {
+
+  public RepositoryConnectionFragment()
+  {
+    Name = "...repoConnectionFragment";
+    Value = @"fragment repoConnectionFragment on RepositoryConnection {
+                                          nodes {
                                           id
                                           name
                                           url
@@ -23,5 +27,7 @@ public static class RepositoryFragment
                                             }
                                           }
                                         }
+                                      }
                                         ";
+  }
 }

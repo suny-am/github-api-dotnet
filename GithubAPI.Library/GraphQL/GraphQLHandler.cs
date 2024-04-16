@@ -1,64 +1,24 @@
 ﻿using System.Net.Http.Headers;
 using GraphQL.Client.Http;
-using GraphQL.Client.Abstractions;
 using GraphQL.Client.Serializer.Newtonsoft;
-using GraphQL;
 using GithubAPI.Library.GraphQL.Types;
-using GithubAPI.Library.GraphQL.Queries;
-using GithubAPI.Library.GraphQL.Records;
+using GithubAPI.Library.GraphQL.Requests;
 
 namespace GithubAPI.Library.GraphQL;
 
-public class GraphQLHandler(string apiToken)
+public class GraphQLHandler(string apiToken) : IGraphQLHandler
 {
   private readonly AuthenticationHeaderValue _auth = new("bearer", apiToken);
-  private readonly GraphQLHttpClient _graphQlHttpClient = new("https://api.github.com/graphql", new NewtonsoftJsonSerializer());
+  private readonly GraphQLHttpClient _client = new("https://api.github.com/graphql", new NewtonsoftJsonSerializer());
 
-  public async Task<IEnumerable<NodeType>?> GetRepositoriesByQuery()
+  public GraphQLHttpClient GraphQLClient => _client;
+
+  public async Task<dynamic?> PerformQuery(AuthenticatedRequest graphQLRequest)
   {
-    var orgQuery = new OrganizationQuery(_auth);
-    var response = await _graphQlHttpClient.SendQueryAsync(
-      orgQuery, () => new
-      {
-        user = new UserType(),
-        organization = new OrganizationType()
-      });
+    graphQLRequest.Authentication = _auth;
 
-    return response.Data.organization.Repositories!.Nodes!;
-  }
+    var response = await _client.SendQueryAsync<ResponseType>(graphQLRequest);
 
-  public async Task<IEnumerable<Repository>?> GetRepositoriesBySearch()
-  {
-    GraphQLRequest searchQuery = new SearchQuery(_auth);
-    GraphQLResponse<SearchResponseType> response = await _graphQlHttpClient.SendQueryAsync(
-         searchQuery, () => new SearchResponseType()
-         {
-           search = new SearchType(),
-         });
-
-    return CreateRepositoryRecords(response);
-  }
-
-  private static IEnumerable<Repository>? CreateRepositoryRecords(GraphQLResponse<SearchResponseType> searchResponse)
-  {
-    var repositories = searchResponse.Data.search
-                                          .Edges?
-                                          // filter out org link repository
-                                          .Where(e => e.Node!.Name != ".github")
-                                          .Select(e => e.Node!)
-                                          .Select(n => new Repository
-                                          (id: n.ID,
-                                           name: n.Name,
-                                           homepageUrl: n.HomepageURL ?? "",
-                                           url: n.URL,
-                                           pushedAt: n.PushedAt,
-                                           diskUsage: n.DiskUsage,
-                                           commitTotal: n.DefaultBranchRef!
-                                                          .Target!
-                                                          .History!
-                                                          .TotalCount,
-                                           description: n.Description ?? ""
-                                          ));
-    return repositories;
+    return response.Data;
   }
 }
