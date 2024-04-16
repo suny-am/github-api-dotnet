@@ -2,5 +2,5 @@ namespace GithubAPI.Library.GraphQL.Types;
 
 public class EdgeType
 {
-    public NodeType? Node { get; set; }
+    public RepositoryType? Node { get; set; }
 }
