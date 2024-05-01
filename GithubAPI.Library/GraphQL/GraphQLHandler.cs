@@ -19,7 +19,7 @@ public class GraphQLHandler(string apiToken) : IGraphQLHandler
 
     var response = await _client.SendQueryAsync<ResponseType>(graphQLRequest);
 
-    if (response.Errors?.Length != 0)
+    if (response.Errors is not null)
     {
       throw new GraphQLHttpRequestException(response.AsGraphQLHttpResponse().StatusCode,
                                             response.AsGraphQLHttpResponse().ResponseHeaders,
