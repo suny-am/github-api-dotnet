@@ -9,8 +9,8 @@ A .NET Library for communicating with the Github API (only GraphQL is supported 
 - A generic request client that enables authorized queries
 - preconfigured extendable query result types, derived from the Github GraphQL API Schema:
 
-```
-    # Github GraphQL API schema introspection
+```graphql
+# Github GraphQL API schema introspection
 query {
   __schema {
     types {
@@ -32,7 +32,7 @@ makes extending and/or overriding a Type trivial.
 
 Due to how GraphQL response namespaces work the responsetype has to match the request query:
 
-```
+```c#
 # Example query
 RepositoryConnectionFragment repoConnectionFragment = new();
 
